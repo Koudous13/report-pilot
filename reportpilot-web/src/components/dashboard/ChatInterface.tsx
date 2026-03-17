@@ -25,26 +25,43 @@ export function ChatInterface() {
     "Quels sont les produits les plus rentables ?"
   ];
 
-  const handleSend = (e: React.FormEvent) => {
+  const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
 
-    // Ajouter le message utilisateur
     const userMsg: Message = { id: Date.now().toString(), role: "user", content: input };
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
 
-    // Simuler la réponse de l'IA (À remplacer par l'appel API vers n8n/Supabase)
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/ai/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: input }),
+      });
+
+      if (!response.ok) throw new Error('Erreur réseau');
+      
+      const data = await response.json();
+
       setMessages((prev) => [
         ...prev,
         {
-          id: (Date.now() + 1).toString(),
+          id: Date.now().toString(),
           role: "assistant",
-          content: "Je suis en train d'analyser vos données. L'intégration réelle sera configurée dans la Phase 5 via n8n."
+          content: data.reply
         }
       ]);
-    }, 1000);
+    } catch (error) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: Date.now().toString(),
+          role: "assistant",
+          content: "Désolé, une erreur est survenue lors de la communication avec l'assistant."
+        }
+      ]);
+    }
   };
 
   const handleSuggestion = (text: string) => {

@@ -46,19 +46,19 @@ const KPICard = ({ title, value, change, trend, icon: Icon, source }: KPICardPro
   );
 };
 
-export function KPICards() {
+export function KPICards({ data }: { data?: any }) {
   const kpis: KPICardProps[] = [
     {
       title: "Chiffre d'Affaires T.",
-      value: "14.5M FCFA",
-      change: "+12.5% vs mois prec.",
+      value: data?.income ? `${data.income.toLocaleString()} FCFA` : "14.5M FCFA",
+      change: data?.income ? "Temps réel" : "+12.5% vs mois prec.",
       trend: "up",
       icon: DollarSign,
       source: "Odoo ERP"
     },
     {
       title: "Trésorerie Actuelle",
-      value: "4.2M FCFA",
+      value: data?.balance ? `${data.balance.toLocaleString()} FCFA` : "4.2M FCFA",
       change: "Stable",
       trend: "neutral",
       icon: Wallet,
@@ -73,12 +73,12 @@ export function KPICards() {
       source: "Facturation"
     },
     {
-      title: "Dépenses Mensuelles",
-      value: "8.4M FCFA",
-      change: "+2.1% vs mois prec.",
+      title: "Volume Transactions",
+      value: data?.transactionsCount ? `${data.transactionsCount}` : "1.2k",
+      change: data?.transactionsCount ? "Total" : "+2.1% vs mois prec.",
       trend: "up",
       icon: ShoppingCart,
-      source: "Achats"
+      source: "Système"
     }
   ];
 

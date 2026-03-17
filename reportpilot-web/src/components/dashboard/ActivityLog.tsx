@@ -16,8 +16,8 @@ interface LogEntry {
   status: 'success' | 'warning' | 'error' | 'info';
 }
 
-export function ActivityLog() {
-  const logs: LogEntry[] = [
+export function ActivityLog({ data }: { data?: any[] }) {
+  const defaultLogs: LogEntry[] = [
     {
       id: "1",
       time: "Il y a 10 min",
@@ -40,22 +40,16 @@ export function ActivityLog() {
       message: "Analyse des ventes du jour terminée.",
       details: "Top produit : 'Souris Ergo Pro'.",
       status: "info"
-    },
-    {
-      id: "4",
-      time: "08:00",
-      type: "action",
-      message: "Rapport matinal envoyé à @Koudous sur WhatsApp",
-      status: "success"
-    },
-    {
-      id: "5",
-      time: "06:30",
-      type: "sync",
-      message: "Synchronisation nocturne (Odoo, Stripe, Mailchimp)",
-      status: "success"
     }
   ];
+
+  const logs = data && data.length > 0 ? data.map(l => ({
+    id: l.id,
+    time: new Date(l.created_at).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
+    type: l.action_type as any,
+    message: l.description,
+    status: l.severity === 'error' ? 'error' : l.severity === 'warning' ? 'warning' : 'success'
+  } as LogEntry)) : defaultLogs;
 
   const getIcon = (type: string, status: string) => {
     switch (type) {

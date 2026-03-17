@@ -2,13 +2,17 @@ import { createClient } from '@/utils/supabase/server';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const supabase = await createClient();
-
   try {
-    const { data: { user } } = await supabase.auth.getUser();
+    // Vérification des variables d'environnement
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+      return NextResponse.json({ error: 'Variables d’environnement Supabase manquantes sur Vercel.' }, { status: 500 });
+    }
 
-    if (!user) {
-      return NextResponse.json({ error: 'Non autorisé' }, { status: 401 });
+    const supabase = await createClient();
+    const { data: { user }, error: authError } = await supabase.auth.getUser();
+
+    if (authError || !user) {
+      return NextResponse.json({ error: 'Session invalide ou utilisateur non connecté.' }, { status: 401 });
     }
 
     // Récupérer les KPIs (Total Income, Expenses, Inventory)

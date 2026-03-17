@@ -28,7 +28,7 @@ export function ActivityLog() {
     {
       id: "2",
       time: "Il y a 45 min",
-      type: "warning",
+      type: "alert",
       message: "Anomalie détectée : Écart de stock sur 'Clavier Mécanique V2'",
       details: "Odoo (-5 unités) vs Inventaire Physique. Ajustement en attente.",
       status: "warning"
@@ -62,7 +62,7 @@ export function ActivityLog() {
       case 'action': return <MessageSquare className={`h-4 w-4 ${status === 'success' ? 'text-emerald-500' : 'text-blue-500'}`} />;
       case 'analysis': return <FileText className="h-4 w-4 text-purple-500" />;
       case 'sync': return <RefreshCw className="h-4 w-4 text-blue-500" />;
-      case 'warning': return <AlertTriangle className="h-4 w-4 text-amber-500" />;
+      case 'alert': return <AlertTriangle className="h-4 w-4 text-amber-500" />;
       default: return <Bot className="h-4 w-4 text-zinc-500" />;
     }
   };

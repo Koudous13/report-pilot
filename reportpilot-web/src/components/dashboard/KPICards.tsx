@@ -50,33 +50,33 @@ export function KPICards({ data }: { data?: any }) {
   const kpis: KPICardProps[] = [
     {
       title: "Chiffre d'Affaires T.",
-      value: data?.income ? `${data.income.toLocaleString()} FCFA` : "14.5M FCFA",
-      change: data?.income ? "Temps réel" : "+12.5% vs mois prec.",
-      trend: "up",
+      value: data?.income ? `${data.income.toLocaleString()} FCFA` : "0 FCFA",
+      change: data?.income ? "Temps réel" : "En attente de données",
+      trend: "neutral",
       icon: DollarSign,
       source: "Odoo ERP"
     },
     {
       title: "Trésorerie Actuelle",
-      value: data?.balance ? `${data.balance.toLocaleString()} FCFA` : "4.2M FCFA",
-      change: "Stable",
+      value: data?.balance ? `${data.balance.toLocaleString()} FCFA` : "0 FCFA",
+      change: "Calculé",
       trend: "neutral",
       icon: Wallet,
       source: "Compte Pro"
     },
     {
       title: "Créances Clients",
-      value: "2.1M FCFA",
-      change: "-5.2% vs mois prec.",
-      trend: "down",
+      value: "N/A",
+      change: "Pas de données",
+      trend: "neutral",
       icon: CreditCard,
       source: "Facturation"
     },
     {
       title: "Volume Transactions",
-      value: data?.transactionsCount ? `${data.transactionsCount}` : "1.2k",
-      change: data?.transactionsCount ? "Total" : "+2.1% vs mois prec.",
-      trend: "up",
+      value: data?.transactionsCount ? `${data.transactionsCount}` : "0",
+      change: data?.transactionsCount ? "Total" : "Aucune transaction",
+      trend: "neutral",
       icon: ShoppingCart,
       source: "Système"
     }

@@ -17,31 +17,7 @@ interface LogEntry {
 }
 
 export function ActivityLog({ data }: { data?: any[] }) {
-  const defaultLogs: LogEntry[] = [
-    {
-      id: "1",
-      time: "Il y a 10 min",
-      type: "action",
-      message: "Facture FC-2026-042 générée depuis le bon de commande #892",
-      status: "success"
-    },
-    {
-      id: "2",
-      time: "Il y a 45 min",
-      type: "alert",
-      message: "Anomalie détectée : Écart de stock sur 'Clavier Mécanique V2'",
-      details: "Odoo (-5 unités) vs Inventaire Physique. Ajustement en attente.",
-      status: "warning"
-    },
-    {
-      id: "3",
-      time: "Il y a 1h",
-      type: "analysis",
-      message: "Analyse des ventes du jour terminée.",
-      details: "Top produit : 'Souris Ergo Pro'.",
-      status: "info"
-    }
-  ];
+  const defaultLogs: LogEntry[] = [];
 
   const logs = data && data.length > 0 ? data.map(l => ({
     id: l.id,

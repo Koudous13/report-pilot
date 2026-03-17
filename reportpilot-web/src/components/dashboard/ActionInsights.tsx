@@ -1,4 +1,4 @@
-import { Check, X, AlertCircle } from "lucide-react";
+import { Check, X, AlertCircle, CheckCircle2 } from "lucide-react";
 
 interface InsightAction {
   id: string;
